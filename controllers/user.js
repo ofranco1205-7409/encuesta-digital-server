@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const image = require("../utils/image");
 
-async function getMe(req,res){
+async function getMe(req, res) {
   const { user_id } = req.user;
 
   const response = await User.findById(user_id);
@@ -30,7 +30,7 @@ async function getUsers(req, res) {
 async function createUser(req, res) {
   const { password } = req.body;
   const user = new User({ ...req.body, active: false });
- 
+
   const salt = bcrypt.genSaltSync(10);
   const hasPassword = bcrypt.hashSync(password, salt);
   user.password = hasPassword;
@@ -53,8 +53,6 @@ async function updateUser(req, res) {
   const { id } = req.params;
   const userData = req.body;
 
-  
-
   if (userData.password) {
     const salt = bcrypt.genSaltSync(10);
     const hashPassword = bcrypt.hashSync(userData.password, salt);
@@ -70,7 +68,7 @@ async function updateUser(req, res) {
 
   User.findByIdAndUpdate({ _id: id }, userData, (error) => {
     if (error) {
-        console.log(error)
+      console.log(error);
       res.status(400).send({ msg: "Error al actualizar el usuario" });
     } else {
       res.status(200).send({ msg: "Actualizacion correcta" });
@@ -91,7 +89,7 @@ async function deleteUser(req, res) {
 }
 
 module.exports = {
-    getMe,
+  getMe,
   getUsers,
   createUser,
   updateUser,
