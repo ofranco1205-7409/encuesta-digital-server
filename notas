@@ -1,0 +1,8 @@
+heroku git:remote -a webpersonalcurso
+git push heroku master
+
+git remote add heroku https://git.heroku.com/thawing-inlet-61413.git
+
+netifly
+add al package.json
+"homepage":"https://silver-cassata-5a517c.netlify.app"
