@@ -6,34 +6,55 @@ function createAccessToken(user) {
   expToken.setHours(expToken.getHours() + 3);
 
   const payload = {
-    token_type:"access",
+    token_type: "access",
     user_id: user._id,
     iat: Date.now(),
     exp: expToken.getTime(),
   };
 
   return jwt.sign(payload, JWT_SECRET_KEY);
-  }
+}
 
 function createRefreshToken(user) {
   const expToken = new Date();
-  expToken.getMonth(expToken.getMonth() + 1);
+  expToken.setMonth(expToken.getMonth() + 1);
 
   const payload = {
-    token_type:"refresh",
+    token_type: "refresh",
     user_id: user._id,
     iat: Date.now(),
     exp: expToken.getTime(),
   };
 
   return jwt.sign(payload, JWT_SECRET_KEY);
-  }
+}
 
 function decoded(token) {
   return jwt.decode(token, JWT_SECRET_KEY, true);
 }
+
+function encodeFolio(folio) {
+  const expToken = new Date();
+  expToken.setMonth(expToken.getMonth() + 1);
+
+  const payload = {
+    token_type: "fToken",
+    folio: folio,
+    iat: Date.now(),
+    exp: expToken.getTime(),
+  };
+
+  return jwt.sign(payload, JWT_SECRET_KEY);
+}
+
+function decodeFolio(fToken) {
+  return jwt.decode(fToken, JWT_SECRET_KEY, true);
+}
+
 module.exports = {
   createAccessToken,
   createRefreshToken,
   decoded,
+  encodeFolio,
+  decodeFolio,
 };

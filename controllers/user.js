@@ -5,6 +5,7 @@ const image = require("../utils/image");
 async function getMe(req, res) {
   const { user_id } = req.user;
 
+  console.log("user_id", user_id);
   const response = await User.findById(user_id);
 
   if (!response) {

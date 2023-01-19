@@ -9,6 +9,7 @@ const app = express();
 const authRoutes = require("./router/auth");
 const userRoutes = require("./router/user");
 const tacRoutes = require("./router/tac");
+const folioRoutes = require("./router/folio");
 const menuRoutes = require("./router/menu");
 
 // Configure Body Parser
@@ -25,6 +26,7 @@ app.use(cors());
 app.use(`/api/${API_VERSION}`, authRoutes);
 app.use(`/api/${API_VERSION}`, userRoutes);
 app.use(`/api/${API_VERSION}`, tacRoutes);
+app.use(`/api/${API_VERSION}`, folioRoutes);
 app.use(`/api/${API_VERSION}`, menuRoutes);
 
 module.exports = app;
