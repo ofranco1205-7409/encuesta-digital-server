@@ -6,3 +6,5 @@ git remote add heroku https://git.heroku.com/thawing-inlet-61413.git
 netifly
 add al package.json
 "homepage":"https://silver-cassata-5a517c.netlify.app"
+
+source /home/omarfranco19/nodevenv/bk/18/bin/activate && cd /home/omarfranco19/bk
