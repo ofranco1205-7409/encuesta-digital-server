@@ -1,6 +1,11 @@
 const Folio = require("../models/folio");
 const jwt = require("../utils/jwt");
 
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ */
 async function getFolios(req, res) {
   const { folio } = req.body;
 
@@ -102,7 +107,12 @@ async function decodeFolio(req, res) {
     res.status(201).send(response);
   }
 }
-
+/**
+ * Equivalente a login
+ * Busca que exista el folio en DB
+ * @param {*} req
+ * @param {*} res
+ */
 //Equivalente a login
 async function encodeFolio(req, res) {
   const { _id } = req.body;

@@ -78,7 +78,7 @@ function refreshAccessToken(req, res) {
 }
 
 function hello(req, res) {
-  res.status(200).send({ msg: "Hello 20Ene23" });
+  res.status(200).send({ msg: "Hello 7feb23" });
 }
 
 module.exports = {

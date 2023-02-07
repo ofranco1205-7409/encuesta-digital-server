@@ -82,16 +82,19 @@ async function updateQuestion(req, res) {
     Question.findOneAndUpdate(
       { folio, qID },
       qData,
-      { new: true },
-      (error, questionStored) => {
+      {
+        //new: true,
+        upsert: true,
+        returnDocument: "after",
+      },
+      (error, qStored) => {
         if (error) {
-          console.log(error);
           res.status(400).send({
             msg: "Error al actualizar folio [" + folio + "] qID [" + qID + "]",
+            error,
           });
         } else {
-          console.log(questionStored);
-          res.status(201).send({ msg: "Actualizacion correcta" });
+          res.status(201).send(qStored);
         }
       }
     );
@@ -120,9 +123,9 @@ async function deleteQuestion(req, res) {
     };
     Question.findOneAndDelete({ folio, qID }, (error) => {
       if (error) {
-        console.log(error);
         res.status(400).send({
           msg: "Error al eliminar folio [" + folio + "] qID [" + qID + "]",
+          err: error,
         });
       } else {
         res.status(201).send({ msg: "Delete correcto" });
