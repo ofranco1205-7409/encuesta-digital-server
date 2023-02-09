@@ -29,9 +29,10 @@ async function createQuestion(req, res) {
   if (!qID) {
     msg = msg + "qID es requerido, ";
   }
+  /*
   if (!qRes) {
     msg = msg + "qRes es requerido, ";
-  }
+  }*/
 
   if (msg.length > 0) {
     res.status(400).send({ msg });
@@ -39,7 +40,7 @@ async function createQuestion(req, res) {
     const q = new Question({
       folio,
       qID,
-      qRes,
+      qRes: qRes ? qRes : "",
       cDate: new Date(),
       aDate: new Date(),
     });
@@ -67,15 +68,17 @@ async function updateQuestion(req, res) {
   if (!qID) {
     msg = msg + "qID es requerido, ";
   }
-  if (!qRes) {
-    msg = msg + "qRes es requerido, ";
-  }
+  /*
+  if (!qRes && qRes === undefined) {
+    console.log("qRes", qRes);
+    msg = msg + "qRes es requerido [" + qRes + "]";
+  }*/
 
   if (msg.length > 0) {
     res.status(400).send({ msg });
   } else {
     const qData = {
-      qRes,
+      qRes: qRes ? qRes : "",
       //cDate: new Date(),
       aDate: new Date(),
     };

@@ -3,9 +3,16 @@ const mongoose = require("mongoose");
 const QuestionSchema = mongoose.Schema({
   folio: {
     type: String,
+    required: true,
+    index: true,
     //unique: true,
   },
-  qID: String,
+  qID: {
+    type: String,
+    required: true,
+    index: true,
+    //unique: true,
+  },
   qRes: Object,
   cDate: Date,
   aDate: Date,
