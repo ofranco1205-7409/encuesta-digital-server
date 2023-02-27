@@ -1,6 +1,8 @@
 const Question = require("../models/question");
 
 async function getQuestions(req, res) {
+  console.log("getQuestions", req.params, req.body);
+
   const { folio } = req.query;
   const { qID } = req.query;
 
@@ -21,6 +23,8 @@ async function getQuestions(req, res) {
 }
 
 async function createQuestion(req, res) {
+  console.log("createQuestion", req.params, req.body);
+
   const { folio, qID, qRes } = req.body;
   let msg = "";
   if (!folio) {
@@ -42,7 +46,7 @@ async function createQuestion(req, res) {
       qID,
       qRes: qRes ? qRes : "",
       cDate: new Date(),
-      aDate: new Date(),
+      uDate: new Date(),
     });
 
     q.save((error, qStored) => {
@@ -56,7 +60,7 @@ async function createQuestion(req, res) {
 }
 
 async function updateQuestion(req, res) {
-  console.log(req.params);
+  console.log("updateQuestion", req.params, req.body);
 
   const { qID } = req.params;
   const { folio, qRes } = req.body;
@@ -80,7 +84,7 @@ async function updateQuestion(req, res) {
     const qData = {
       qRes: qRes ? qRes : "",
       //cDate: new Date(),
-      aDate: new Date(),
+      uDate: new Date(),
     };
     Question.findOneAndUpdate(
       { folio, qID },
@@ -105,6 +109,8 @@ async function updateQuestion(req, res) {
 }
 
 async function deleteQuestion(req, res) {
+  console.log("deleteQuestion", req.params, req.body);
+
   const { qID } = req.params;
   const { folio, qRes } = req.body;
 

@@ -7,6 +7,8 @@ const jwt = require("../utils/jwt");
  * @param {*} res
  */
 async function getFolios(req, res) {
+  console.log("getFolios", req.params, req.body);
+
   const { folio } = req.body;
 
   let response = null;
@@ -21,11 +23,18 @@ async function getFolios(req, res) {
 }
 
 async function createFolio(req, res) {
-  const { email } = req.body;
+  console.log("createFolio", req.params, req.body);
+
+  const { email, name, email2, comments, done } = req.body;
 
   const folio = new Folio({
     email: email ? email.toLowerCase() : "",
+    name: name ? name : "",
+    email2: email2 ? email2.toLowerCase() : "",
+    comments: comments ? comments : "",
+    done: done ? true : false,
     cDate: new Date(),
+    uDate: new Date(),
   });
 
   folio.save((error, fStored) => {
@@ -38,7 +47,9 @@ async function createFolio(req, res) {
 }
 
 async function updateFolio(req, res) {
-  const { folio } = req.body;
+  console.log("updateFolio", req.params, req.body);
+
+  const { folio, name, email, email2, comments, done } = req.body;
 
   let msg = "";
   if (!folio) {
@@ -50,21 +61,29 @@ async function updateFolio(req, res) {
   } else {
     const qData = {
       //cDate: new Date(),
-      eDate: new Date(),
+      name,
+      email: email ? email.toLowerCase() : "",
+      email2: email2 ? email2.toLowerCase() : "",
+      comments,
+      done,
+      uDate: new Date(),
     };
     Folio.findOneAndUpdate(
       { _id: folio },
       qData,
-      { new: true },
+      {
+        //new: true
+        upsert: true,
+        returnDocument: "after",
+      },
       (error, fStored) => {
         if (error) {
-          console.log(error);
           res.status(400).send({
             msg: "Error al actualizar folio [" + folio + "]",
+            error,
           });
         } else {
-          console.log(fStored);
-          res.status(201).send({ msg: "Actualizacion correcta" });
+          res.status(201).send(fStored);
         }
       }
     );
@@ -72,6 +91,8 @@ async function updateFolio(req, res) {
 }
 
 async function deleteFolio(req, res) {
+  console.log("deleteFolio", req.params, req.body);
+
   const { folio } = req.body;
 
   let msg = "";
@@ -97,6 +118,8 @@ async function deleteFolio(req, res) {
 
 //Equivalente a getMe
 async function decodeFolio(req, res) {
+  console.log("decodeFolio", req.params, req.body);
+
   const { _id } = req.folio;
 
   const response = await Folio.findById(_id);
@@ -115,9 +138,9 @@ async function decodeFolio(req, res) {
  */
 //Equivalente a login
 async function encodeFolio(req, res) {
-  const { _id } = req.body;
+  console.log("encodeFolio", req.params, req.body);
 
-  console.log("encodeFolio:", _id);
+  const { _id } = req.body;
 
   if (!_id) res.status(400).send({ msg: "El id es obligatorio" });
 

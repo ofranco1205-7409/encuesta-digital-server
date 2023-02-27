@@ -15,7 +15,7 @@ const QuestionSchema = mongoose.Schema({
   },
   qRes: Object,
   cDate: Date,
-  aDate: Date,
+  uDate: Date,
 });
 
 module.exports = mongoose.model("Question", QuestionSchema);
