@@ -1,7 +1,7 @@
 const Question = require("../models/question");
 
 async function getQuestions(req, res) {
-  console.log("getQuestions", req.params, req.body);
+  console.log("getQuestions", req.params, req.body, req.query);
 
   const { folio } = req.query;
   const { qID } = req.query;
@@ -19,6 +19,7 @@ async function getQuestions(req, res) {
     }
   }
 
+  console.log("response", response);
   res.status(201).send(response);
 }
 
