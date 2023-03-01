@@ -11,6 +11,7 @@ const {
 } = require("./constants");
 
 const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/encuesta-digital?retryWrites=true&w=majority`;
+
 mongoose.connect(
   uri,
   { useNewUrlParser: true, useUnifiedTopology: true },
