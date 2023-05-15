@@ -11,6 +11,7 @@ const userRoutes = require("./router/user");
 const tacRoutes = require("./router/tac");
 const folioRoutes = require("./router/folio");
 const menuRoutes = require("./router/menu");
+const exportRoutes = require("./router/export");
 
 // Configure Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,5 +29,6 @@ app.use(`/api/${API_VERSION}`, userRoutes);
 app.use(`/api/${API_VERSION}`, tacRoutes);
 app.use(`/api/${API_VERSION}`, folioRoutes);
 app.use(`/api/${API_VERSION}`, menuRoutes);
+app.use(`/api/${API_VERSION}`, exportRoutes);
 
 module.exports = app;
