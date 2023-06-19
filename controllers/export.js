@@ -62,6 +62,8 @@ const fields = [
 
   "B2",
 
+  //"B3",
+
   "B3_1",
   "B3_2",
   "B3_3",
@@ -311,6 +313,139 @@ const fields = [
   "D_R7_2",
   "D_R7_3",
   "D_R7_4",
+
+  "U1_insumos_importados",
+  "U1_produccion_exportada",
+  "U1_mercado_domestico",
+
+  "U2_P1",
+  "U2_P2",
+  "U2_P3",
+  "U2_P4",
+  "U2_P5",
+  "U2_P6",
+  "U2_P7",
+  "U2_P8",
+  "U2_P9",
+  "U2_P10",
+  "U2_P11",
+  "U2_P12",
+  "U2_P13",
+  "U2_P14",
+  "U2_P15",
+
+  "U3_1",
+  "U3_2",
+  "U3_3",
+  "U3_4",
+  "U3_5",
+
+  "U4",
+
+  "U5_distribucion",
+  "U5_aduanas",
+  "U5_administrativos_y_servicio_cliente",
+  "U5_comerciales",
+  "U5_seguros_a_carga",
+  "U5_impuestos",
+  "U5_depreciacion_activos",
+  "U5_empaquetado_etiquetado",
+  "U5_abastecimiento",
+  "U5_logistica_inversa",
+  "U5_combustible",
+  "U5_laborales",
+  "U5_almacenamiento_picking",
+  "U5_gestion_compras",
+  "U5_reciclaje",
+  "U5_costos_ambientales",
+  "U5_capacitacion",
+  "U5_alquileres_hipotecas",
+  "U5_vigilancia_seguridad",
+  "U5_tiempos_muertos",
+  "U5_viaticos_estancias",
+
+  "U6_P1",
+  "U6_P2",
+  "U6_P3",
+  "U6_P4",
+  "U6_P5",
+  "U6_P6",
+  "U6_P7",
+  "U6_P8",
+  "U6_P9",
+  "U6_P10",
+  "U6_P11",
+
+  "U7_1",
+  "U7_2",
+  "U7_3",
+  "U7_4",
+
+  "U8_1",
+  "U8_2",
+  "U8_3",
+  "U8_4",
+  "U8_5",
+  "U8_otro",
+
+  "U9_transporte",
+  "U9_almacenamiento",
+  "U9_gestion_logistica",
+
+  "U10",
+
+  "U11_km_recorridos",
+  "U11_no_disponible",
+
+  "U12_1",
+  "U12_2",
+  "U12_3",
+  "U12_4",
+  "U12_5",
+  "U12_6",
+  "U12_7",
+  "U12_8",
+  "U12_9",
+  "U12_10",
+
+  "U13_1",
+  "U13_2",
+  "U13_3",
+  "U13_4",
+  "U13_5",
+  "U13_6",
+  "U13_7",
+  "U13_8",
+
+  "U14_1",
+  "U14_2",
+  "U14_3",
+  "U14_4",
+  "U14_5",
+  "U14_6",
+  "U14_7",
+
+  "U15_1",
+  "U15_2",
+  "U15_3",
+  "U15_4",
+  "U15_5",
+  "U15_6",
+  "U15_7",
+  "U15_8",
+  "U15_9",
+  "U15_10",
+
+  "U16",
+
+  "U17_1",
+  "U17_2",
+  "U17_3",
+  "U17_4",
+  "U17_5",
+
+  "U18",
+  "U18_otro",
 ];
 
 async function getData(req, res) {
@@ -518,6 +653,61 @@ function getExportData(questions, f) {
         values = getD(q.qRes);
         break;
 
+      case "U1":
+        values = getU1(q.qRes);
+        break;
+      case "U2":
+        values = getU2(q.qRes);
+        break;
+      case "U3":
+        values = getU3(q.qRes);
+        break;
+      case "U4":
+        values = getU4(q.qRes);
+        break;
+      case "U5":
+        values = getU5(q.qRes);
+        break;
+      case "U6":
+        values = getU6(q.qRes);
+        break;
+      case "U7":
+        values = getU7(q.qRes);
+        break;
+      case "U8":
+        values = getU8(q.qRes);
+        break;
+      case "U9":
+        values = getU9(q.qRes);
+        break;
+      case "U10":
+        values = getU10(q.qRes);
+        break;
+      case "U11":
+        values = getU11(q.qRes);
+        break;
+      case "U12":
+        values = getU12(q.qRes);
+        break;
+      case "U13":
+        values = getU13(q.qRes);
+        break;
+      case "U14":
+        values = getU14(q.qRes);
+        break;
+      case "U15":
+        values = getU15(q.qRes);
+        break;
+      case "U16":
+        values = getU16(q.qRes);
+        break;
+      case "U17":
+        values = getU17(q.qRes);
+        break;
+      case "U18":
+        values = getU18(q.qRes);
+        break;
+
       default:
         break;
     }
@@ -559,7 +749,7 @@ function getB1(qRes) {
 }
 
 function getB2(qRes) {
-  const data = { B2: qRes };
+  const data = { B2: qRes.replace("B2_", "") };
 
   console.log("B2 data", data);
   return data;
@@ -567,6 +757,7 @@ function getB2(qRes) {
 
 function getB3(qRes) {
   const data = qRes.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+  //const data = { B3: qRes.replace("B3_", "") };
 
   console.log("B3 data", data);
   return data;
@@ -708,7 +899,8 @@ function getC1_6(qRes) {
 
 function getC1_7(qRes) {
   const data = {
-    C1_7: qRes.C1_7,
+    //C1_7: qRes.C1_7,
+    C1_7: qRes.C1_7.replace("C1.7_", ""),
     C1_7_otro: qRes.otro,
   };
 
@@ -987,6 +1179,197 @@ function getD(qRes) {
   //data = { ...data, C1_3_otro: qRes.otro };
 
   console.log("D data", data);
+  return data;
+}
+
+function getU1(qRes) {
+  const data = {
+    U1_insumos_importados: qRes.insumos_importados,
+    U1_produccion_exportada: qRes.produccion_exportada,
+    U1_mercado_domestico: qRes.mercado_domestico,
+  };
+
+  console.log("U1 data", data);
+  return data;
+}
+
+function getU2(qRes) {
+  const retosRank = qRes.map((e, i) => {
+    return "R_" + e.title.substring(1, e.title.indexOf("}"));
+  });
+  const data = retosRank.reduce(
+    (a, v, i) => ({ ...a, [`U2_P${i + 1}`]: v }),
+    {}
+  );
+
+  console.log("U2 data", data);
+  return data;
+}
+
+function getU3(qRes) {
+  let data = qRes.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+
+  //data = { ...data, C1_3_otro: qRes.otro };
+
+  console.log("CU3 data", data);
+  return data;
+}
+
+function getU4(qRes) {
+  const data = { U4: qRes.replace("U4_", "") };
+
+  console.log("U4 data", data);
+  return data;
+}
+
+/*{ qID:"U5",folio: '6477fc29d60b206dc0a12370'}5*/
+function getU5(qRes) {
+  const data = {
+    U5_distribucion: qRes.distribucion,
+    U5_aduanas: qRes.aduanas,
+    U5_administrativos_y_servicio_cliente:
+      qRes.administrativos_y_servicio_cliente,
+    U5_comerciales: qRes.comerciales,
+    U5_seguros_a_carga: qRes.seguros_a_carga,
+    U5_impuestos: qRes.impuestos,
+    U5_depreciacion_activos: qRes.depreciacion_activos,
+    U5_empaquetado_etiquetado: qRes.empaquetado_etiquetado,
+    U5_abastecimiento: qRes.abastecimiento,
+    U5_logistica_inversa: qRes.logistica_inversa,
+    U5_combustible: qRes.combustible,
+    U5_laborales: qRes.laborales,
+    U5_almacenamiento_picking: qRes.almacenamiento_picking,
+    U5_gestion_compras: qRes.gestion_compras,
+    U5_reciclaje: qRes.reciclaje,
+    U5_costos_ambientales: qRes.costos_ambientales,
+    U5_capacitacion: qRes["capacitación"],
+    U5_alquileres_hipotecas: qRes.alquileres_hipotecas,
+    U5_vigilancia_seguridad: qRes.vigilancia_seguridad,
+    U5_tiempos_muertos: qRes.tiempos_muertos,
+    U5_viaticos_estancias: qRes.viaticos_estancias,
+  };
+
+  console.log("U5 data", data);
+  return data;
+}
+
+function getU6(qRes) {
+  const retosRank = qRes.map((e, i) => {
+    return "R_" + e.title.substring(1, e.title.indexOf("}"));
+  });
+  const data = retosRank.reduce(
+    (a, v, i) => ({ ...a, [`U6_P${i + 1}`]: v }),
+    {}
+  );
+
+  console.log("U6 data", data);
+  return data;
+}
+
+function getU7(qRes) {
+  let data = qRes.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+
+  //data = { ...data, C1_3_otro: qRes.otro };
+
+  console.log("U7 data", data);
+  return data;
+}
+
+function getU8(qRes) {
+  let data = qRes.U8.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+
+  data = { ...data, U8_otro: qRes.otro };
+
+  console.log("U8 data", data);
+  return data;
+}
+
+function getU9(qRes) {
+  const data = {
+    U9_transporte: qRes.transporte,
+    U9_almacenamiento: qRes.almacenamiento,
+    U9_gestion_logistica: qRes.gestion_logistica,
+  };
+
+  console.log("U9 data", data);
+  return data;
+}
+
+function getU10(qRes) {
+  const data = { U10: qRes.replace("U10_", "") };
+
+  console.log("U10 data", data);
+  return data;
+}
+
+function getU11(qRes) {
+  const data = {
+    U11_km_recorridos: qRes.km_recorridos,
+    U11_no_disponible: qRes.no_disponible,
+  };
+
+  console.log("U11 data", data);
+  return data;
+}
+
+function getU12(qRes) {
+  let data = qRes.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+
+  //data = { ...data, C1_3_otro: qRes.otro };
+
+  console.log("U12 data", data);
+  return data;
+}
+
+function getU13(qRes) {
+  let data = qRes.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+
+  //data = { ...data, C1_3_otro: qRes.otro };
+
+  console.log("U13 data", data);
+  return data;
+}
+
+function getU14(qRes) {
+  let data = qRes.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+
+  //data = { ...data, C1_3_otro: qRes.otro };
+
+  console.log("U14 data", data);
+  return data;
+}
+
+function getU15(qRes) {
+  let data = qRes.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+
+  //data = { ...data, C1_3_otro: qRes.otro };
+
+  console.log("U15 data", data);
+  return data;
+}
+
+function getU16(qRes) {
+  const data = { U16: qRes.replace("U16_", "") };
+
+  console.log("U16 data", data);
+  return data;
+}
+
+function getU17(qRes) {
+  let data = qRes.reduce((a, v, i) => ({ ...a, [`${v}`]: 1 }), {});
+
+  //data = { ...data, C1_3_otro: qRes.otro };
+
+  console.log("U17 data", data);
+  return data;
+}
+
+function getU18(qRes) {
+  let data = { U18: qRes.participa.replace("U18_", "") };
+
+  data = { ...data, U18_otro: qRes.otro };
+
+  console.log("U18 data", data);
   return data;
 }
 
